@@ -10,11 +10,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import co.edu.eci.ieti.R;
 import co.edu.eci.ieti.android.storage.Storage;
+import co.edu.eci.ieti.android.ui.adapter.TasksAdapter;
+import co.edu.eci.ieti.android.ui.viewmodel.TaskViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+
 
 public class MainActivity
     extends AppCompatActivity
@@ -52,7 +59,26 @@ public class MainActivity
 
         NavigationView navigationView = findViewById( R.id.nav_view );
         navigationView.setNavigationItemSelectedListener( this );
+
+        configureRecyclerView();
     }
+
+    private void configureRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.idListView_ContentMain);
+        TasksAdapter tasksAdapter = new TasksAdapter();
+        recyclerView.setAdapter(tasksAdapter);
+        recyclerView.setHasFixedSize( true );
+        LinearLayoutManager layoutManager = new LinearLayoutManager( this );
+        recyclerView.setLayoutManager(layoutManager);
+        TaskViewModel taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+        taskViewModel.setToken(new Storage(this).getToken());
+        taskViewModel.getAllTasks().observe(this, tasks -> {
+            runOnUiThread(() -> tasksAdapter.updateTasks(tasks));
+        });
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
+        recyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
 
     @Override
     public void onBackPressed()
