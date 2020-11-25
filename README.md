@@ -1,3 +1,25 @@
+# IETI-LAB13
+
+## Enunciado
+La guía del laboratorio está disponible [aquí](https://github.com/ieti-eci/3.3-android-local-storage-list-views).
+
+## Datos de Logeo
+
+**Correo**: test@mail.com
+
+**Contraseña**: password
+
+**Nota**: Se deben utilizar estos datos de logeo, con el proyecto backend corriendo al tiempo.
+
+### Demostración
+
+ <img src="Images/Image1.png" width="270" height="540"/>
+ <img src="Images/Image2.png" width="270" height="540"/>
+ <img src="Images/Image3.png" width="270" height="540"/>
+ 
+## Autor
+Johann Sebastian Páez Campos - Laboratorio 13 IETI 26/11/2020
+
 # 3.3 Android Local Storage & List Views
 * Consume secure REST API wih Retrofit
 * Configure and integrate Android local storage using ROOM Persistence library.
